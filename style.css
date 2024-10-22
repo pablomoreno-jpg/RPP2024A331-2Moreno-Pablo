@@ -1,0 +1,160 @@
+
+.principal{
+
+    height: auto;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(238, 161, 73);
+    border-radius: 10px;
+    border: 5px solid rgb(246, 113, 30);
+
+}
+
+.principal .carteles {
+
+    top: 40px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(243, 185, 119);
+}
+
+.principal table{
+
+    background-color: rgb(243, 185, 119);;
+    align-self: center;
+    margin: auto;
+    border-collapse: collapse;
+    letter-spacing: 1px;
+
+
+}
+
+.principal td{
+    border: 2px solid  rgb(196, 104, 0);
+    align-items: center;
+    padding: 4px 5px;
+    text-align: center;
+}
+
+select{
+
+    background-color: rgb(251, 205, 162);
+    font-family: "Libre Baskerville", serif;
+    font-style: normal;
+
+}
+
+input{
+
+    background-color: rgb(251, 205, 162);
+    font-family: "Libre Baskerville", serif;
+    font-style: normal;
+    border: 1px solid;
+    
+    
+}
+
+label{
+
+    font-family: "Libre Baskerville", serif;
+    font-style: normal;
+    padding: 2px;
+}
+
+.principal .boton{
+
+    background-color: rgb(246, 113, 30);
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 50%;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.principal .calcular{
+
+    background-color: rgb(246, 113, 30);
+    border: none;
+    margin-left: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.principal .cabezera{
+
+    background-color: rgb(246, 113, 30);
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+h1{
+
+    font-family: "Cinzel", serif;
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+    color: rgb(255, 123, 0);
+
+}
+
+.abm{
+    display: none;
+    height: auto;
+    padding-top: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 21px;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(238, 161, 73);
+    border-radius: 10px;
+    border: 5px solid rgb(246, 113, 30);
+}
+
+.botones{
+
+    float: center;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows: 100%;
+    list-style: none;
+}
+
+.botones button{
+
+    background-color: rgb(246, 113, 30);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: 5px;
+    font-weight:bold;
+    font-size: 15px;
+
+}
+
+h2{
+    font-family: "Cinzel", serif;
+    font-optical-sizing: auto;
+    width: auto;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    align-self: center;
+    background-color:rgb(241, 121, 9);
+    border-radius: 14px;
+
+}
+
