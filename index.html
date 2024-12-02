@@ -9,6 +9,10 @@
         <title>primer parcial</title>
         <script>
 
+            //revisar validaciones
+            //revisar las validaciones 
+            //rehacer la eliminacion y la modificacion
+
             click = 0;
 
             class Persona{
@@ -87,7 +91,7 @@
 
                 if(typeof persona.titulo == "undefined" && typeof persona.facultad == "undefined" && typeof persona.añoGraduacion == "undefined"){
 
-                   var elemento = new Futbolista(persona.id,persona.nombre,persona.apellido,persona.edad,persona.equipo,persona.posicion,persona.cantidadGoles);
+                    var elemento = new Futbolista(persona.id,persona.nombre,persona.apellido,persona.edad,persona.equipo,persona.posicion,persona.cantidadGoles);
                 }
                 else if(typeof persona.equipo == "undefined" && typeof persona.posicion == "undefined" && typeof persona.cantidadGoles == "undefined"){
 
@@ -101,6 +105,15 @@
                 lista.push(elemento);
 
             })
+
+            function buscarPersona(id){
+
+                let persona = lista.find(persona => persona.id == id);
+                let index = lista.indexOf(persona);
+
+                return index;
+
+            }
 
             function filtrar(array){
 
@@ -128,11 +141,14 @@
 
                 let tabla = document.getElementById("personas");
 
+
+
                 let filtrada = filtrar(array);
 
-                filtrada.forEach( (element, index) => {
+                filtrada.forEach( element => {
 
                     let linea = document.createElement("tr"); 
+
 
                     if(document.getElementById("ckid").checked){
                     
@@ -174,7 +190,7 @@
                     
                     
                     }    
-   
+
                     if(document.getElementById("ckequipo").checked){
                     
                         
@@ -281,7 +297,7 @@
                     }
                 
                     if(document.getElementById("ckgrad").checked){
-                          
+
                         var celda = document.createElement("td");
 
                         if(element instanceof Profecional){
@@ -303,16 +319,17 @@
                         linea.setAttribute("tipo","ninguno");
                     }
 
+                    tabla.appendChild(linea);
+
+                    
+
                     linea.addEventListener("dblclick", ()=>{
-                        
-                        modificarPersona(linea,index)
+
+                        modificarPersona(linea)
 
                     })
 
-                    tabla.appendChild(linea);
-
                 })
-      
 
             }
 
@@ -369,7 +386,7 @@
                     cabezera.appendChild(caja);
 
                 }    
-                                          
+
                 if(document.getElementById("ckedad").checked){
 
                     var cajal = document.createElement("td");
@@ -385,7 +402,7 @@
                     cabezera.appendChild(cajal);
 
                 }    
-                      
+
                 if(document.getElementById("ckequipo").checked){
 
                     var caja = document.createElement("td");
@@ -408,7 +425,7 @@
                     var boton = document.createElement("input");
                     
                     boton.setAttribute("type","button");
-                    boton.setAttribute("value","psocion");
+                    boton.setAttribute("value","posicion");
                     boton.setAttribute("class","cabezera");
                     boton.setAttribute("id","fpos");
 
@@ -692,6 +709,33 @@
                         }
                         
                         break;
+                        case "Año":
+                            if(click %2 == 0){
+
+                                lista.sort((a,b) => {
+
+                                    if(a instanceof Profecional && !(b instanceof Profecional)) return -1;
+                                    if(!(a instanceof Profecional) && b instanceof Profecional) return 1;
+
+                                    if(a.facultad < b.facultad) return 1;
+                                    if(a.facultad > b.facultad) return -1;
+
+                                    return 0;
+                                })
+                            }
+                            else{
+
+                                lista.sort((b,a) => {
+                                    if(a instanceof Profecional && !(b instanceof Profecional)) return -1;
+                                    if(!(a instanceof Profecional) && b instanceof Profecional) return 1;
+
+                                    if(a.facultad < b.facultad) return 1;
+                                    if(a.facultad > b.facultad) return -1;
+
+                                    return 0;
+                                })
+
+                            }
                 
                 }
 
@@ -709,21 +753,21 @@
                 if(document.getElementById("ckid").checked){
 
                     document.getElementById("fId").addEventListener("click",() => {
-                       
-                       tabla.replaceChildren();
-                       ordenar("id");
-                       crearTabla(lista);
-                   })  
+
+                        tabla.replaceChildren();
+                        ordenar("id");
+                        crearTabla(lista);
+                    })  
                 }
                 
                 if(document.getElementById("cknombre").checked){
 
                     document.getElementById("fnom").addEventListener("click",() => {
-                       
-                       tabla.replaceChildren();
-                       ordenar("nombre");
-                       crearTabla(lista);
-                   })  
+                        
+                        tabla.replaceChildren();
+                        ordenar("nombre");
+                        crearTabla(lista);
+                    })  
 
                 }
                 
@@ -734,32 +778,32 @@
                     document.getElementById("fapellido").addEventListener("click",() => {
                         
 
-                       tabla.replaceChildren();
-                       ordenar("apellido");
-                       crearTabla(lista);
-                   })  
+                        tabla.replaceChildren();
+                        ordenar("apellido");
+                        crearTabla(lista);
+                    })  
 
                 }
             
                 if(document.getElementById("ckedad").checked){
 
                     document.getElementById("fedad").addEventListener("click",() => {
-                       
-                       tabla.replaceChildren();
-                       ordenar("edad");
-                       crearTabla(lista);
-                   })  
+                        
+                        tabla.replaceChildren();
+                        ordenar("edad");
+                        crearTabla(lista);
+                    })  
 
                 }
 
                 if(document.getElementById("ckequipo").checked){
 
                     document.getElementById("equipo").addEventListener("click",() => {
-                       
-                       tabla.replaceChildren();
-                       ordenar("equipo");
-                       crearTabla(lista);
-                   })  
+                        
+                        tabla.replaceChildren();
+                        ordenar("equipo");
+                        crearTabla(lista);
+                    })  
 
                 }
 
@@ -792,13 +836,13 @@
                         tabla.replaceChildren();
                         ordenar("titulo");
                         crearTabla(lista);
-                   })  
+                    })  
 
                 }
-         
-                if(document.getElementById("ckFacultad").checked){
 
-                    document.getElementById("fFacultad").addEventListener("click",() => {
+                if(document.getElementById("ckgrad").checked){
+
+                    document.getElementById("ckgrad").addEventListener("click",() => {
                         
                         tabla.replaceChildren();
                         ordenar("facultad");
@@ -807,19 +851,17 @@
 
                 }
 
-                if(document.getElementById("ckgrad").checked){
+                if(document.getElementById("ckFacultad").checked){
 
                     document.getElementById("fgrad").addEventListener("click",() => {
-                        
+
                         tabla.replaceChildren();
-                        ordenar("grad");
+                        ordenar("Año");
                         crearTabla(lista);
                     })  
 
                 }
-            
-            
-            
+
             }
 
             function agregarPersona(){
@@ -849,6 +891,7 @@
                 cartel3.style.display = "none";
 
 
+
                 let vaciar = ()=>{
 
                     id.value = "";
@@ -874,7 +917,6 @@
 
                 tipo.addEventListener("change", ()=>{
                     
-                   
                     if(cartel1.childNodes.length > 0 && cartel2.childNodes.length > 0){
 
                         cartel1.textContent = "";
@@ -932,16 +974,19 @@
 
                 boton1.addEventListener("click",()=>{ //agregar
 
-                    if(id.value != "" && nombre.value != "" && apellido.value != "" && edad.value != ""){
+                    if( nombre.value != "" && apellido.value != "" && (edad.value != "" && !isNaN(edad.value))){
 
-
+                        let id = lista.length + 1;
                         let tabla = document.getElementById("personas");
                         let principal = document.getElementById("principal");
                         let amb = document.getElementById("abm");
 
-                        switch (tipo.value){
+                        if(parseInt(edad.value) > 15 && parseInt(edad.value) < 99){
+
+                            switch (tipo.value){
                             case "1":
-                                let persona = new Persona(parseInt(id.value),nombre.value,apellido.value,parseInt(edad.value));
+
+                                let persona = new Persona(id,nombre.value,apellido.value,parseInt(edad.value));
 
                                 lista.push(persona);
                                 
@@ -952,11 +997,11 @@
 
                                 break;
                             case "2":
-                                if(dato1.value != "" && dato2.value != "" && dato3.value != ""){
+                                if(dato1.value != "" && dato2.value != "" && (dato3.value != "" && !isNaN(dato3.value))){
 
                                     if(parseInt(dato3.value) > -1){
 
-                                        let persona = new Futbolista(parseInt(id.value),nombre.value,apellido.value,parseInt(edad.value),dato1.value,dato2.value,parseInt(dato3.value));
+                                        let persona = new Futbolista(id,nombre.value,apellido.value,parseInt(edad.value),dato1.value,dato2.value,parseInt(dato3.value));
                                         
                                         lista.push(persona);
                                         
@@ -970,12 +1015,17 @@
                                         alert("cantidad de goles no valida");
                                     }
                                 }
+                                else{
+
+                                    alert("error, asegurece de que ninguno de los ultimos 3 o que la cantidad de goles no tenga ninguna letra.")
+
+                                }
                                 break;
                             case "3":
-                                if(dato1.value != "" && dato2.value != "" && dato3.value != ""){
+                                if(dato1.value != "" && dato2.value != "" && (dato3.value != "" && !isNaN(dato3.value))){
 
-                                    if(parseInt(dato3.value) > 1950){
-                                        let persona = new Profecional(parseInt(id.value),nombre.value,apellido.value,parseInt(edad.value),dato1.value,dato2.value,parseInt(dato3.value))
+                                    if(parseInt(dato3.value) > 1950 && parseInt(dato3.value) < 2024){
+                                        let persona = new Profecional(id,nombre.value,apellido.value,parseInt(edad.value),dato1.value,dato2.value,parseInt(dato3.value))
                                         
                                         lista.push(persona);
                                         tabla.replaceChildren();
@@ -987,9 +1037,22 @@
                                         alert("año de graduacion invalido");
                                     }
                                 }
+                                else{
+
+                                    alert("error, asegurece de que ninguno de los ultimos 3 o que el año de graduacion no tenga ninguna letra.")
+
+                                }
                                 break;
                         }
+                        }
+                        else{
 
+                            alert("error, la persona debe ser mayor a 15 años y menor de 99");
+                        }
+                    }   
+                    else{
+
+                        alert("Faltan Datos, rebice las casillas ID, Nombre, Apellido, Edad");
                     }
 
                     vaciar();
@@ -1005,8 +1068,8 @@
 
             }
 
-            function modificarPersona(contenido,index){
-                
+            function modificarPersona(contenido){
+
                 let abm = document.getElementById("abm");
                 let id = document.getElementById("amb_id");
                 let nombre = document.getElementById("amb_nombre");
@@ -1071,6 +1134,8 @@
                 apellido.value = contenido.getAttribute("apellido");
                 edad.value = contenido.getAttribute("edad");
 
+
+
                 switch(contenido.getAttribute("tipo")){
                     case "ninguno":
                         tipo.value = "1";
@@ -1129,6 +1194,14 @@
 
                 tipo.addEventListener("change",()=>{
 
+                    if(cartel1.childNodes.length > 0 && cartel2.childNodes.length > 0){
+
+                        cartel1.textContent = "";
+                        cartel2.textContent = "";
+                        cartel3.textContent = "";
+
+                    }
+
                     switch (tipo.value){
                         case "2":
                             cartel1.style.display = "block";
@@ -1186,88 +1259,132 @@
                     boton3.style.display = "none";
                 })
 
-                boton3.addEventListener("click",()=>{
+                boton3.addEventListener("click",()=>{ //eliminar
+                    
+                    if(id.value != ""){
+
+                        let tabla = document.getElementById("personas");
+
+                        lista = lista.filter(obj => obj.id != id.value);
+
+                        tabla.replaceChildren();
+
+
+                        alert("ID: "+ id.value + " "+nombre.value+" "+apellido.value+" Fue eliminado");
+                        crearTabla(lista);
+                        ocultar();
+                        vaciar();
+
+                    }
+        
+                // }
+                /// else{
+
+                    // alert("Persona no econtrada");
+                    //}
+            
+
+                })
+
+                boton2.addEventListener("click", ()=>{ //modificar
+
+                    let index = buscarPersona(parseInt(id.value));
 
                     let tabla = document.getElementById("personas");
                     let principal = document.getElementById("principal");
                     let amb = document.getElementById("abm");
+        
+                    if(id.value != ""){
+                        
+                        if( nombre.value != "" && apellido.value != "" && (edad.value != "" && !isNaN(edad.value))){
+                            
+                            if(parseInt(edad.value) > 15 && parseInt(edad.value) < 99){
 
-                    if(index > 0){
+                                switch (tipo.value){
+                                    case "1":
+                                        let persona = new Persona(parseInt(id.value),nombre.value,apellido.value,parseInt(edad.value));
 
-                        lista.splice(index,index);
+                                        lista[index] = persona;
 
-                    }
-                    else{
+                                        tabla.replaceChildren();
+                                        crearTabla(lista);
+                                        ocultar();
+                                        vaciar();
 
-                        lista.shift();
-                    }
+                                        break;
+                                    case "2":
+                                        if(dato1.value != "" && dato2.value != "" && (dato3.value != "" && !isNaN(dato3.value))){
 
-                    tabla.replaceChildren();
-                    crearTabla(lista);
-                    ocultar();
-                    vaciar();
+                                            if(parseInt(dato3.value) > -1){
 
-                })
+                                                let persona = new Futbolista(parseInt(id.value),nombre.value,apellido.value,parseInt(edad.value),dato1.value,dato2.value,parseInt(dato3.value));
+                                                
+                                                lista[index] = persona;
 
-                boton2.addEventListener("click", ()=>{
+                                                tabla.replaceChildren();
+                                                crearTabla(lista);
+                                                alert("el jugador "+id.value+" "+nombre.value+" "+apellido.value+" fue modificado");
+                                                ocultar();
+                                                vaciar();
+                                            }
+                                            else{
 
-                    let tabla = document.getElementById("personas");
-                    let principal = document.getElementById("principal");
-                    let amb = document.getElementById("abm");
-      
-                    switch (tipo.value){
-                        case "1":
-                            let persona = new Persona(parseInt(id.value),nombre.value,apellido.value,parseInt(edad.value));
+                                                alert("cantidad de goles no valida");
+                                            }
+                                        }
+                                        else{
 
-                            lista[index] = persona;
+                                            alert("error, asegurece de que ninguno de los ultimos 3 o que la cantidad de goles no tenga ninguna letra.")
 
-                            break;
-                        case "2":
-                            if(dato1.value != "" && dato2.value != "" && dato3.value != ""){
+                                        }
+                                        break;
+                                    case "3":
+                                        if(dato1.value != "" && dato2.value != "" && (dato3.value != "" && !isNaN(dato3.value))){
 
-                                if(parseInt(dato3.value) > -1){
+                                            if(parseInt(dato3.value) > 1950 && parseInt(dato3.value) < 2024){
+                                                let persona = new Profecional(parseInt(id.value),nombre.value,apellido.value,parseInt(edad.value),dato1.value,dato2.value,parseInt(dato3.value))
+                                
+                                                lista[index] = persona;
 
-                                    let persona = new Futbolista(parseInt(id.value),nombre.value,apellido.value,parseInt(edad.value),dato1.value,dato2.value,parseInt(dato3.value));
-                                    
-                                    lista[index] = persona;
-                                }
-                                else{
+                                                tabla.replaceChildren();
+                                                crearTabla(lista);
+                                                alert("el "+dato1.value+" "+nombre.value+" "+apellido.value+" fue modificado");
+                                                ocultar();
+                                                vaciar();
+                                            }
+                                            else{
+                                                alert("año de graduacion invalido");
+                                            }
+                                        }
+                                        else{
 
-                                    alert("cantidad de goles no valida");
+                                            alert("error, asegurece de que ninguno de los ultimos 3 o que el año de graduacion no tenga ninguna letra.")
+
+                                        }
+                                        break;
                                 }
                             }
-                            break;
-                        case "3":
-                            if(dato1.value != "" && dato2.value != "" && dato3.value != ""){
+                            else{
 
-                                if(parseInt(dato3.value) > 1950){
-                                    let persona = new Profecional(parseInt(id.value),nombre.value,apellido.value,parseInt(edad.value),dato1.value,dato2.value,parseInt(dato3.value))
-                      
-                                    lista[index] = persona;
-                                }
-                                else{
-                                    alert("año de graduacion invalido");
-                                }
+                                alert("error, la persona debe ser mayor a 15 años y menor de 99");
                             }
-                            break;
+
+                            
+                        }
+
                     }
 
-                    tabla.replaceChildren();
-                    crearTabla(lista);
-                    ocultar();
-                    vaciar();
-
-
                 })
 
-                boton4.addEventListener("click",()=>{
+                boton4.addEventListener("click",()=>{ //cancelar
 
                     vaciar();
                     ocultar();
 
                 })
+                
+
             }
-
 
             window.addEventListener("DOMContentLoaded", ()=>{
 
@@ -1332,7 +1449,6 @@
 
                 crearTabla(lista);
 
-                
             })
 
 
@@ -1344,7 +1460,7 @@
         </header>
         <main>
             <div class="principal" id="principal">
-             <section class="carteles">
+                <section class="carteles">
                     <label>filtrar por:</label>
                     <select class="select"id="filtros" name="filtros">
                         <option value="1">Todos</option>
@@ -1373,12 +1489,11 @@
                 </table>
                 <button class="boton" id="agregar">Agregar</button>
                 <br><br>       
-                
             </div>
             <div class="abm" id="abm">
                 <h2>agregar persona</h2>
-                <label>Id:</label>
-                <input type="text" id="amb_id"><br>
+                <label style="display: none">Id:</label >
+                <input type="text" id="amb_id" style="display: none"><br>
                 <label>nombre:</label>
                 <input type="text" id="amb_nombre"><br>
                 <label>apellido</label>
@@ -1387,7 +1502,7 @@
                 <input type="text" id="amb_edad"><br>
                 <select id="amb_elegir">
                     <option value="1">Ninguno</option>
-                    <option value="2">Futbolista|</option>
+                    <option value="2">Futbolista</option>
                     <option value= "3">Profecional</option>
                 </select>
                 <label id ="cartel1" style="display: none"></label>
@@ -1395,7 +1510,7 @@
                 <label id="cartel2" style="display: none"></label>
                 <input type="text" id="dato2"style="display: none"><br>
                 <label id="cartel3" style="display: none"></label>
-                <input type="text" id="dato3"style="display: none"><br>
+                <input type="text" id="dato3"s1tyle="display: none"><br>
                 <div class="botones">
                     <button id="abm_boton1" style="display: none;">Agregar</button>
                     <button id="abm_boton2" style="display: none;">Modificar</button>
